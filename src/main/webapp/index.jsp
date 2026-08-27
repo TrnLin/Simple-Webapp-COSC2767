@@ -23,6 +23,8 @@
       <a class="btn btn-primary btn-lg" href="https://www.rmit.edu.vn/about-us/schools-and-centres/school-of-science-engineering-and-technology" role="button">Learn more about SSET</a>
       <a class="btn btn-success btn-lg" href="https://getbootstrap.com/docs/4.3/getting-started/introduction/" role="button">Learn more about Bootstrap CSS Framework</a>
       <span>This is a test commit to test the github webhook</span>
+
+
     </div>
     <!-- The content of the website ends here! -->
 
@@ -32,4 +34,39 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
+<%-- Add this logging code --%>
+<%@ page import="java.io.*, java.util.Date, java.text.SimpleDateFormat" %>
+<%
+try {
+    // Define the path for the log file inside the container
+    String logDirPath = "/usr/local/tomcat/logs";
+    String logFilePath = logDirPath + "/app.log";
+
+    // Ensure the log directory exists
+    File logDir = new File(logDirPath);
+    if (!logDir.exists()) {
+        logDir.mkdirs();
+    }
+
+    // Open the log file in append mode (the 'true' flag)
+    PrintWriter outLog = new PrintWriter(
+        new FileWriter(logFilePath, true)
+    );
+
+    // Create a timestamp and write the log entry
+    String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        .format(new Date());
+    outLog.println(timestamp + " - Page accessed by a user.");
+
+    // Close the writer to save the changes
+    outLog.close();
+} catch (IOException e) {
+    // Basic error handling
+    e.printStackTrace();
+}
+%>
+<p style="color: green;"><b>A new log entry was just added to
+/usr/local/tomcat/logs/app.log!</b></p>
 </html>
+
+
